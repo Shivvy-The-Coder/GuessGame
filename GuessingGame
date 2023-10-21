@@ -1,0 +1,108 @@
+import  java.util.*;
+public class Main {
+
+    public static void main(String[] args)
+    {
+       rules();
+       Scanner sc = new Scanner(System.in);
+       boolean retry=true;
+       int finalscore=0;
+       int outOfGame=0;
+       while (retry ==true)
+       {   int lev=level();
+           int x=new_game(lev);
+           finalscore+=x;
+           System.out.println(finalscore);
+           outOfGame++;
+           System.out.println("Enter true to continue or false to exit :");
+           retry=sc.nextBoolean();
+       }
+        System.out.println("finalscore is :"+finalscore+" out of "+outOfGame+" Games");
+    }
+    public static  void rules()
+    {
+
+        System.out.println("***************************************************************");
+        System.out.println("                         HOW TO PLAY ");
+        System.out.println("***************************************************************");
+        System.out.println("1. A random number will be generated between 1 to 100 .");
+        System.out.println();
+        System.out.println("2. You need to guess the number, if your guess is higher than");
+        System.out.println("   the number generated you will get the feedback : too high and");
+        System.out.println("   if the number you guessed is smaller than,you will get too low");
+        System.out.println();
+        System.out.println("3. you will have  chances based on the level you choose to guess ");
+        System.out.println("   the number , if you match it ,then you win else you loose");
+        System.out.println();
+        System.out.println("4.You can restart the game if you want, by typing 'true' and ");
+        System.out.println("   'false' for Exit");
+        System.out.println();
+        System.out.println("5.your score will displayed at the end of the game ");
+        System.out.println();
+        System.out.println("***************************************************************");
+        System.out.println("                        ENJOY THE GAME ");
+        System.out.println("***************************************************************");
+    }
+    public static int new_game(int level)
+    {
+        System.out.println("***************************************************************");
+        System.out.println("                 WELCOME TO THE GUESS GAME             ");
+        System.out.println("***************************************************************");
+        Random rand =  new Random();
+        Scanner sc = new Scanner(System.in);
+        int score=0;
+        int randomnumber =rand.nextInt(100)+1;
+        int lives =level;
+        int wrongAnswer =0;
+        while(lives!=0)
+        {
+            System.out.println("LIVES    : "+lives);
+            System.out.println("MISTAKES : "+wrongAnswer);
+            System.out.println();
+            System.out.println("Guess the NUmber :");
+            int n = sc.nextInt();
+            if(n!=randomnumber)
+            {
+                System.out.println(" WROMG GUESS :-(");
+                if(n<randomnumber)
+                    System.out.println("Too less");
+                else
+                    System.out.println("Too High");
+                lives--;
+                wrongAnswer++;
+            }
+            else
+            {
+                System.out.println("YOU PLAYED CORRECT :");
+                score=1;
+                break;
+            }
+        }
+        return score;
+    }
+    public static int level()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("ENTER 1. for EASY : no of tries 8");
+        System.out.println("ENTER 2. for MEDIUM : no of tries 5");
+        System.out.println("ENTER 3. for HARD : no of tries 3");
+        int n=sc.nextInt();
+        int val=0;
+        switch (n)
+        {
+            case 1:
+                val=8; System.out.println("YOU CHOOSE EASY LEVEL");
+                break;
+            case 2:
+                val=5;System.out.println("YOU CHOOSE Medium LEVEL");
+                break;
+            case 3:
+                val=3;System.out.println("YOU CHOOSE HARD LEVEL");
+                break;
+            default:
+                System.out.println("Wrong input, retry again:");
+                level();
+        }
+        return val;
+    }
+}
